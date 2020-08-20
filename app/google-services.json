@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "591367277928",
+    "firebase_url": "https://gisproject-d5b18.firebaseio.com",
+    "project_id": "gisproject-d5b18",
+    "storage_bucket": "gisproject-d5b18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591367277928:android:9b70b9754e5cbe49a51add",
+        "android_client_info": {
+          "package_name": "com.example.findpharmacy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591367277928-l4jqtfc2ga87hva3bi1fr8ogsta33vpa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5gd-WcblpfAbnOoZyadotn3FYR8w8afs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591367277928-l4jqtfc2ga87hva3bi1fr8ogsta33vpa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

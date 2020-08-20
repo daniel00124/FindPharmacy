@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "231552168355",
+    "firebase_url": "https://findpharmacy-ceaac.firebaseio.com",
+    "project_id": "findpharmacy-ceaac",
+    "storage_bucket": "findpharmacy-ceaac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231552168355:android:3e265a1d4e95ee22626a16",
+        "android_client_info": {
+          "package_name": "com.example.findpharmacy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231552168355-f21jo461mmga0v2lmojcnh1jmf8rl39a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.findpharmacy",
+            "certificate_hash": "4c01643a233cd3c7f687f197a7ae1a8ab18ff560"
+          }
+        },
+        {
+          "client_id": "231552168355-8ab50dmivgln8gekbkq1k2qr290tbvef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9m4BicNxZxLfRPlw-uQa4SYX_5Z4Ze1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231552168355-8ab50dmivgln8gekbkq1k2qr290tbvef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

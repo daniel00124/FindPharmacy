@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6F1231</color>
+    <color name="colorPrimaryDark">#6F0A1E</color>
+    <color name="colorAccent">#1D1619</color>
+    <color name="label_default_color">#389FF1</color>
+    <color name="label_pressed_color">#06253E</color>
+
+</resources>
