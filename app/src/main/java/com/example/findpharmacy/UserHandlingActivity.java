@@ -28,7 +28,7 @@ public class UserHandlingActivity extends AppCompatActivity implements UserLogin
     private static final String TAG_REGISTER = "UserRegisterFragment";
     public static final String KEY_USER_PASS = "password";
     public static final String KEY_USER_RISK_GROUP = "risk";
-    private FirebaseFirestore db;
+
     FragmentManager mFragmentManager;
     UserLoginFragment mUserLoginFragment;
     UserRegisterFragment mUserRegisterFragment;
@@ -36,7 +36,7 @@ public class UserHandlingActivity extends AppCompatActivity implements UserLogin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = FirebaseFirestore.getInstance();
+
         setContentView(R.layout.activity_user_handling);
         mUserLoginFragment = new UserLoginFragment();
         mFragmentManager = getSupportFragmentManager();
@@ -51,8 +51,8 @@ public class UserHandlingActivity extends AppCompatActivity implements UserLogin
     }
 
     @Override
-    public void onSignInClicked(FirebaseAuth mFirebaseAuth, final String email, String pwd) {
-        mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    public void onSignInClicked( final String email, String pwd) {
+        FireBaseController.getInstance().getFirebaseAuth().signInWithEmailAndPassword(email, pwd).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
@@ -77,19 +77,18 @@ public class UserHandlingActivity extends AppCompatActivity implements UserLogin
     }
 
     @Override
-    public void onSignUpClicked(FirebaseAuth mFirebaseAuth, final String userEmail, final String userPass, final String riskGroup) {
-        mFirebaseAuth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    public void onSignUpClicked( final String userEmail, final String userPass, final String riskGroup) {
+        FireBaseController.getInstance().getFirebaseAuth().createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG_REGISTER, "You have successfully registered");
                     User user = new User(userEmail, userPass, riskGroup);
-                    db = FirebaseFirestore.getInstance();
                     Map<String, String> Users = new HashMap<>();
                     Users.put(KEY_USER_PASS, userPass);
                     Users.put(KEY_USER_RISK_GROUP, riskGroup);
 
-                    db.collection(MainActivity.dbCollection).document(userEmail).set(Users)
+                    FireBaseController.getInstance().getFireBaseFireStore().collection(MainActivity.dbCollection).document(userEmail).set(Users)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -99,7 +98,7 @@ public class UserHandlingActivity extends AppCompatActivity implements UserLogin
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG_REGISTER, "failed to add user's info to database " + e.getMessage().toString());
+                                    Log.d(TAG_REGISTER, "failed to add user's info to database " + e.getMessage());
                                 }
                             });
                     finishActivityWithResults(RESULT_OK, userEmail);

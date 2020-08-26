@@ -24,7 +24,6 @@ public class UserRegisterFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private final static String TAG = "UserRegisterFragment";
 
-    FirebaseAuth mFirebaseAuth;
     EditText mEmailTv, mPassTv, mVerifyPass;
     Button mSignUp;
     RadioButton mRiskLvl;
@@ -58,7 +57,7 @@ public class UserRegisterFragment extends Fragment {
     }
 
     interface UserRegisterListener {
-        void onSignUpClicked(FirebaseAuth mFirebaseAuth, String userEmail, String userPass, String riskGroup);
+        void onSignUpClicked( String userEmail, String userPass, String riskGroup);
     }
 
     @Override
@@ -81,8 +80,6 @@ public class UserRegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_user_register, container, false);
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
         mEmailTv = view.findViewById(R.id.user_email);
         mPassTv = view.findViewById(R.id.user_pass);
         mVerifyPass = view.findViewById(R.id.verify_pass);
@@ -117,7 +114,7 @@ public class UserRegisterFragment extends Fragment {
                     mVerifyPass.setError("Passwords are not match!");
                     mVerifyPass.requestFocus();
                 } else {
-                    listener.onSignUpClicked(mFirebaseAuth, userEmail, userPass, riskGroup);
+                    listener.onSignUpClicked( userEmail, userPass, riskGroup);
                 }
             }
         });

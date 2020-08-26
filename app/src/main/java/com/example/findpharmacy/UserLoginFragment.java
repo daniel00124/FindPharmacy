@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,17 +25,13 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class UserLoginFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAutoStateListener;
     EditText mEmail, mPass;
     Button mSignInBtn;
     TextView mTvSignUp;
     UserLoginListener listener;
-    FirebaseUser mFireBaseUser;
+
 
 
     @Override
@@ -49,7 +46,7 @@ public class UserLoginFragment extends Fragment {
 
     interface UserLoginListener {
         void onWantToSignUpClicked();
-        void onSignInClicked(FirebaseAuth mFirebaseAuth, String email, String pwd );
+        void onSignInClicked( String email, String pwd );
     }
 
     @Override
@@ -69,7 +66,6 @@ public class UserLoginFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static UserLoginFragment newInstance(String param1, String param2) {
         UserLoginFragment fragment = new UserLoginFragment();
-        mFirebaseAuth = FirebaseAuth.getInstance();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -84,43 +80,18 @@ public class UserLoginFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mAutoStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                if( mFirebaseUser != null ){
-                    Toast.makeText(getActivity(),"You are logged in",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(getActivity(),"Please Login",Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+        FireBaseController.getInstance().getCurrentUser(this.getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_user_login, container, false);
-        mFirebaseAuth = FirebaseAuth.getInstance();
         mEmail = view.findViewById(R.id.email);
         mPass = view.findViewById(R.id.password);
         mSignInBtn = view.findViewById(R.id.login_btn);
         mTvSignUp = view.findViewById(R.id.sign_up_text);
-        mAutoStateListener = new FirebaseAuth.AuthStateListener() {
-
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                mFireBaseUser = mFirebaseAuth.getCurrentUser();
-                if (mFireBaseUser != null) {
-                    Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Please Login", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+       FireBaseController.getInstance().getCurrentUser(this.getContext());
 
         mSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +107,7 @@ public class UserLoginFragment extends Fragment {
                 } else if (email.isEmpty() && pwd.isEmpty()) {
                     Toast.makeText(getActivity(), "Fields Are Empty!", Toast.LENGTH_SHORT).show();
                 } else if (!(email.isEmpty() && pwd.isEmpty())) {
-                        listener.onSignInClicked(mFirebaseAuth,email,pwd);
+                        listener.onSignInClicked(email,pwd);
                 } else {
                     Toast.makeText(getActivity(), "Error Occurred!", Toast.LENGTH_SHORT).show();
 
@@ -159,9 +130,7 @@ public class UserLoginFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mFireBaseUser != null) {
-            mFirebaseAuth.signOut();
-        }
+      FireBaseController.getInstance().signOut();
     }
 
 

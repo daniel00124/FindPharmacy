@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class User {
 
+
     private final String mEmail;
     private final String mPassword;
     private final String mRiskGroup;

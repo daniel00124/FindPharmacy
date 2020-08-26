@@ -14,15 +14,15 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="269dp"
-        android:layout_height="260dp"
+        android:layout_width="230dp"
+        android:layout_height="200dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/loginpage2" />
+        app:srcCompat="@drawable/loginpage2"    />
 
     <EditText
         android:id="@+id/email"
