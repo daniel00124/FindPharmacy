@@ -18,7 +18,12 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +33,7 @@ import java.util.List;
 /**
  * Json parser class implement Singleton pattern
  */
-public class GoogleMapUtilities {
+public class GoogleMapUtilities implements MainActivity.superPharmListListener {
     private final String LIST_TAG = "*** SuperPharm List item #";
     private static GoogleMapUtilities mGoogleMapUtilities;
     private RequestQueue mQueue;
@@ -56,7 +61,7 @@ public class GoogleMapUtilities {
         return mGoogleMapUtilities;
     }
 
-    public void jsonParse(String url ) {
+    public void jsonParse(String url) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -70,6 +75,7 @@ public class GoogleMapUtilities {
                                 superPharmList.add(new SuperPharm(jsonArray.getJSONObject(i)));
                                     Log.d(LIST_TAG+i, superPharmList.get(i).toString());
                             }
+                            onListChange();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -120,7 +126,26 @@ public class GoogleMapUtilities {
         }
     }
 
+
+    public void displayNearbySuperPharms(List<SuperPharm> list, GoogleMap mMap){
+        for(SuperPharm superPharm : list){
+            MarkerOptions markerOptions = new MarkerOptions();
+            LatLng latLng = new LatLng(superPharm.getLat(), superPharm.getLng());
+            markerOptions.position(latLng);
+            markerOptions.title(superPharm.getName() + " : " + superPharm.getAddress());
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            mMap.addMarker(markerOptions);
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+        }
+    }
+
+
     public LatLng getUserCurrentLatLng() {
         return userCurrentLatLng;
+    }
+
+    @Override
+    public void onListChange() {
+        MainActivity.displayNearbySuperPharms();
     }
 }

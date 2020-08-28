@@ -45,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     //Find nearBy Places
     SupportMapFragment mapFragment;
-    private GoogleMap mMap;
+    private static GoogleMap mMap;
     private String mUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
     private String params;
 
+
+    public interface superPharmListListener{
+        public void onListChange();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                         + "," + GoogleMapUtilities.getInstance().getUserCurrentLatLng().longitude
                         + "&radius=1500&type=pharmacy&keyword=Super-Pharm&key=" + GOOGLE_API_KEY;
                 GoogleMapUtilities.getInstance().jsonParse(mUrl + params);
-                // Search for 'SuperPharm' in the Logcat to see the list of superpharms.
             }
         });
     }
@@ -134,5 +137,9 @@ public class MainActivity extends AppCompatActivity {
         if (mFireBaseUser != null) {
             FirebaseAuth.getInstance().signOut();
         }
+    }
+
+    public static void displayNearbySuperPharms() {
+        GoogleMapUtilities.getInstance().displayNearbySuperPharms(GoogleMapUtilities.getInstance().getSuperPharmList(),mMap);
     }
 }

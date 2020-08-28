@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/loginpage2"    />
 
+
     <EditText
         android:id="@+id/email"
         android:layout_width="0dp"
@@ -97,5 +98,5 @@
         app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
-    android:id="@+id/sign_up_text"
+
 </androidx.constraintlayout.widget.ConstraintLayout>
